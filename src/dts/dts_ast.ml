@@ -6,7 +6,7 @@
  * LICENSE file in the "flow" directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *)
+*)
 
 (*
  * An Ocaml implementation of the SpiderMonkey Parser API
@@ -758,11 +758,11 @@ and JSX : sig
   module Attribute : sig
     type t = Loc.t * t'
     and name =
-    | Identifier of Identifier.t
-    | NamespacedName of NamespacedName.t
+      | Identifier of Identifier.t
+      | NamespacedName of NamespacedName.t
     and value =
-    | Literal of Loc.t * Literal.t
-    | ExpressionContainer of Loc.t * ExpressionContainer.t
+      | Literal of Loc.t * Literal.t
+      | ExpressionContainer of Loc.t * ExpressionContainer.t
     and t' = {
       name: name;
       value: value option;
@@ -779,8 +779,8 @@ and JSX : sig
   module MemberExpression : sig
     type t = Loc.t * t'
     and _object =
-    | Identifier of Identifier.t
-    | MemberExpression of t
+      | Identifier of Identifier.t
+      | MemberExpression of t
     and t' = {
       _object: _object;
       property: Identifier.t;
