@@ -115,7 +115,7 @@ let convert path recurse error_flags outpath =
 let spec = {
   CommandSpec.
   name = "convert";
-  doc = "";
+  doc = "Convert TypeScript's *.d.ts file to flow type definition";
   usage = Printf.sprintf
     "Usage: %s convert [DIR]\n\n\
       Convert *.d.ts in DIR if supplied, or current directory.\n\
