@@ -1,14 +1,8 @@
+Error: union.js:2
+  2: var a : number = x;
+                      ^ string. This type is incompatible with
+  2: var a : number = x;
+             ^^^^^^ number
 
-union.js:2:18,18: string
-This type is incompatible with
-union.js:2:9,14: number
 
-union.js:3:16,16: number
-This type is incompatible with
-union.js:3:16,16: string
-
-union.js:3:16,16: string
-This type is incompatible with
-union.js:3:16,16: number
-
-Found 3 errors
+Found 1 error

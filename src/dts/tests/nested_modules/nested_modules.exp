@@ -1,32 +1,38 @@
+Error: nested_modules.js:6
+  6: var a : string = P.a;
+                      ^^^ number. This type is incompatible with
+  6: var a : string = P.a;
+             ^^^^^^ string
 
-nested_modules.js:6:18,20: number
-This type is incompatible with
-nested_modules.js:6:9,14: string
+Error: nested_modules.js:8
+  8: var x : string = cc.y;
+                      ^^^^ number. This type is incompatible with
+  8: var x : string = cc.y;
+             ^^^^^^ string
 
-nested_modules.js:8:18,21: number
-This type is incompatible with
-nested_modules.js:8:9,14: string
+Error: nested_modules.js:9
+  9: var two : string = F.successor(1);
+                        ^^^^^^^^^^^^^^ number. This type is incompatible with
+  9: var two : string = F.successor(1);
+               ^^^^^^ string
 
-nested_modules.js:9:20,33: call of method `successor`
-Error:
-nested_modules.js:9:20,33: number
-This type is incompatible with
-nested_modules.js:9:11,16: string
+Error: nested_modules.js:10
+ 10: var alias_two : typeof two = T.identity(two);
+                                  ^^^^^^^^^^^^^^^ C. This type is incompatible with
+ 10: var alias_two : typeof two = T.identity(two);
+                     ^^^^^^^^^^ string
 
-nested_modules.js:10:30,44: call of method `identity`
-Error:
-nested_modules.js:10:30,44: C
-This type is incompatible with
-nested_modules.js:9:11,16: string
+Error: nested_modules.js:10
+ 10: var alias_two : typeof two = T.identity(two);
+                                  ^^^^^^^^^^^^^^^ number. This type is incompatible with
+ 10: var alias_two : typeof two = T.identity(two);
+                     ^^^^^^^^^^ string
 
-nested_modules.js:10:30,44: call of method `identity`
-Error:
-nested_modules.js:10:30,44: number
-This type is incompatible with
-nested_modules.js:9:11,16: string
+Error: nested_modules.js:11
+ 11: var z : string = M.N.z;
+                      ^^^^^ number. This type is incompatible with
+ 11: var z : string = M.N.z;
+             ^^^^^^ string
 
-nested_modules.js:11:18,22: number
-This type is incompatible with
-nested_modules.js:11:9,14: string
 
 Found 6 errors

@@ -1,6 +1,8 @@
+Error: classes.js:2
+  2: var a : C = new D();
+             ^ C. This type is incompatible with
+  3: var a : D = new C();  // Error: C ~> D
+             ^ D
 
-classes.js:2:9,9: C
-This type is incompatible with
-classes.js:3:9,9: D
 
 Found 1 error

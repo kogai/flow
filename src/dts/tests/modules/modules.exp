@@ -1,12 +1,18 @@
+Error: modules.js:6
+  6: var m : string = z;
+                      ^ number. This type is incompatible with
+  6: var m : string = z;
+             ^^^^^^ string
 
-modules.js:6:18,18: number
-This type is incompatible with
-modules.js:6:9,14: string
+Error: modules.js:7
+  7: var obj = new I();
+                   ^ constructor return. Property not found in
+     v--------------------
+  9: declare interface I {
+ 10:   x: typeof G_M.x;
+ 11:   get_y(c: G_M.C): typeof G_M.x;
+ 12: }
+     ^ I. See lib: declarations/modules.js:9
 
-modules.js:8:19,30: call of method `get_y`
-Error:
-modules.js:8:19,30: number
-This type is incompatible with
-modules.js:8:10,15: string
 
 Found 2 errors

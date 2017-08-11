@@ -1,6 +1,8 @@
+Error: interface_var.js:2
+  2: var agelimit: number = adult;
+                            ^^^^^ class type: adult. This type is incompatible with
+  2: var agelimit: number = adult;
+                   ^^^^^^ number
 
-interface_var.js:2:24,28: class type: adult
-This type is incompatible with
-interface_var.js:2:15,20: number
 
 Found 1 error

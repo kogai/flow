@@ -1,6 +1,8 @@
+Error: modules2.js:6
+  6: var m : string = z;
+                      ^ number. This type is incompatible with
+  6: var m : string = z;
+             ^^^^^^ string
 
-modules2.js:6:18,18: number
-This type is incompatible with
-modules2.js:6:9,14: string
 
 Found 1 error

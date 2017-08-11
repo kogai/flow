@@ -1,10 +1,14 @@
+Error: import_commonjs.js:3
+  3: var x : string = (new P.C()).y;
+                      ^^^^^^^^^^^^^ number. This type is incompatible with
+  3: var x : string = (new P.C()).y;
+             ^^^^^^ string
 
-import_commonjs.js:3:19,30: number
-This type is incompatible with
-import_commonjs.js:3:9,14: string
+Error: import_commonjs.js:5
+  5: var z: number = M.m;
+                     ^^^ C. This type is incompatible with
+  5: var z: number = M.m;
+            ^^^^^^ number
 
-import_commonjs.js:5:17,19: C
-This type is incompatible with
-import_commonjs.js:5:8,13: number
 
 Found 2 errors

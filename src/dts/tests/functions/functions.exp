@@ -1,14 +1,16 @@
+Error: functions.js:2
+  2: var x: C = f (5);
+                ^^^^^ function call
+  2: var x: C = f (5);
+                ^^^^^ undefined (too few arguments, expected default/rest parameters). This type is incompatible with
+  1: declare function f(num: number, str: string): C;
+                                          ^^^^^^ string. See lib: declarations/functions.js:1
 
-functions.js:2:12,16: function call
-Error:
-functions.js:2:12,16: undefined (too few arguments, expected default/rest parameters)
-This type is incompatible with
-[LIB] declarations/functions.js:1:38,43: string
+Error: functions.js:3
+  3: var y: string = f(1, "test");
+                     ^^^^^^^^^^^^ C. This type is incompatible with
+  3: var y: string = f(1, "test");
+            ^^^^^^ string
 
-functions.js:3:17,28: function call
-Error:
-functions.js:3:17,28: C
-This type is incompatible with
-functions.js:3:8,13: string
 
 Found 2 errors
