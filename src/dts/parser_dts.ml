@@ -9,6 +9,7 @@
  *)
 
 open Lexer_dts
+open Token_dts
 module Ast = Dts_ast
 open Ast
 module Error = Parse_error
