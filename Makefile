@@ -282,6 +282,7 @@ do-test:
 	./runtests.sh bin/flow$(EXE)
 	bin/flow$(EXE) check
 	./tool test
+	./src/dts/runtests.sh ./bin/flow
 
 test: build-flow copy-flow-files
 	${MAKE} do-test
