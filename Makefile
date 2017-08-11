@@ -74,6 +74,7 @@ MODULES=\
   src/common/profiling\
   src/common/span\
   src/common/utils\
+  src/dts\
   src/flowlib\
   src/parser\
   src/parser_utils\
@@ -339,6 +340,7 @@ flow.odocl: $(shell find . -name "*.ml" -o -name "*.mli")
 	# For some reason these two AST files cause ocamldoc to get stuck
 	cat deps \
 		| grep -v "src/parser/ast.ml" \
+		| grep -v "src/dts/dts_ast.ml" \
 		| sed "s/\.ml$$//" > $@
 	rm -f deps last_deps temp_deps
 
