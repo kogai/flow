@@ -31,128 +31,6 @@ let lex lb = function
   | NORMAL_LEX -> token lb
   | TYPE_LEX -> type_token lb
 
-type env = {
-  errors          : (Loc.t * Error.t) list ref;
-  comments        : Ast.Comment.t list ref;
-  labels          : SSet.t;
-  lb              : Lexing.lexbuf;
-  lookahead       : lex_result ref;
-  last            : lex_result option ref;
-  priority        : int;
-  strict          : bool;
-  in_loop         : bool;
-  in_switch       : bool;
-  in_function     : bool;
-  no_in           : bool;
-  no_call         : bool;
-  no_let          : bool;
-  allow_yield     : bool;
-  (* Use this to indicate that the "()" as in "() => 123" is not allowed in
-   * this expression *)
-  no_arrow_parens : bool;
-  lex_mode_stack : lex_mode list ref;
-}
-
-let init_env lb = {
-  errors          = ref [];
-  comments        = ref [];
-  labels          = SSet.empty;
-  lb              = lb;
-  lookahead       = ref (lex lb NORMAL_LEX);
-  last            = ref None;
-  priority        = 0;
-  strict          = false;
-  in_loop         = false;
-  in_switch       = false;
-  in_function     = false;
-  no_in           = false;
-  no_call         = false;
-  no_let          = false;
-  allow_yield     = true;
-  no_arrow_parens = true;
-  lex_mode_stack  = ref [NORMAL_LEX];
-}
-
-let last_loc env = match !(env.last) with
-  | None -> None
-  | Some result -> Some result.lex_loc
-
-let is_future_reserved = function
-  | "class"
-  | "enum"
-  | "export"
-  | "extends"
-  | "import"
-  | "super" -> true
-  | _ -> false
-
-let is_strict_reserved = function
-  | "implements"
-  | "interface"
-  | "package"
-  | "private"
-  | "protected"
-  | "public"
-  | "static"
-  | "yield" -> true
-  | _ -> false
-
-let is_restricted = function
-  | "eval"
-  | "arguments" -> true
-  | _ -> false
-
-let is_reserved_keyword = function
-  | T_FUNCTION
-  | T_IF
-  | T_IN
-  | T_INSTANCEOF
-  | T_RETURN
-  | T_SWITCH
-  | T_THIS
-  | T_THROW
-  | T_TRY
-  | T_VAR
-  | T_WHILE
-  | T_WITH
-  | T_CONST
-  | T_LET
-  | T_NULL
-  | T_FALSE
-  | T_TRUE
-  | T_BREAK
-  | T_CASE
-  | T_CATCH
-  | T_CONTINUE
-  | T_DEFAULT
-  | T_DO
-  | T_FINALLY
-  | T_FOR
-  | T_CLASS
-  | T_EXTENDS
-  | T_STATIC
-  | T_ELSE
-  | T_NEW
-  | T_DELETE
-  | T_TYPEOF
-  | T_VOID
-  | T_ENUM
-  | T_EXPORT
-  | T_IMPORT
-  | T_SUPER
-  | T_IMPLEMENTS
-  | T_INTERFACE
-  | T_PACKAGE
-  | T_PRIVATE
-  | T_PROTECTED
-  | T_PUBLIC
-  | T_YIELD
-  | T_TYPE
-  | T_DEBUGGER
-  | T_DECLARE
-  | T_MODULE -> true
-  | _ -> false
-
 (* Answer questions about what comes next *)
 module Peek = struct
   open Loc
@@ -3443,17 +3321,28 @@ end
 (*****************************************************************************)
 (* Entry points *)
 (*****************************************************************************)
-let parse_program fail filename content =
-  let lb = Lexing.from_string content in
-  (match filename with
-     None -> ()
-   | Some fn ->
-     lb.Lexing.lex_curr_p <-
-       { lb.Lexing.lex_curr_p with Lexing.pos_fname = fn });
-  let env = init_env lb in
-  let ast = Parse.program env in
-  if fail && !(env.errors) <> []
-  then raise (Error.Error (filter_duplicate_errors [] !(env.errors)));
+let parse_program fail filename_raw content =
+  let open Parser_env in
+  let filename = match filename_raw with
+    | Some f -> Some (Loc.LibFile f)
+    | None -> None
+  in
+
+  (* FIXME: Should consider that compilerOptions has lib and alwaysStrict *)
+  let parse_options = Some {
+      esproposal_class_instance_fields = true;
+      esproposal_class_static_fields = true;
+      esproposal_decorators = true;
+      esproposal_export_star_as = true;
+      types = true;
+      use_strict = true; 
+    } in
+  let env = init_env ~parse_options: parse_options filename content in
+  let comments = env.comments in
+
+  let ast = Parser_ast.program env in
+  (* if fail && !(env.errors) <> []
+     then raise (Error.Error (filter_duplicate_errors [] !(env.errors))); *)
   ast, List.rev !(env.errors)
 
 let program ?(fail=true) content =

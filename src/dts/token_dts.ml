@@ -257,3 +257,79 @@ let token_to_string = function
   | T_EOF -> "EOF"
   | T_JSX_IDENTIFIER -> "JSX IDENTIFIER"
   | T_JSX_TEXT _ -> "JSX TEXT"
+
+let is_future_reserved = function
+  | "class"
+  | "enum"
+  | "export"
+  | "extends"
+  | "import"
+  | "super" -> true
+  | _ -> false
+
+let is_strict_reserved = function
+  | "implements"
+  | "interface"
+  | "package"
+  | "private"
+  | "protected"
+  | "public"
+  | "static"
+  | "yield" -> true
+  | _ -> false
+
+let is_restricted = function
+  | "eval"
+  | "arguments" -> true
+  | _ -> false
+
+let is_reserved_keyword = function
+  | T_FUNCTION
+  | T_IF
+  | T_IN
+  | T_INSTANCEOF
+  | T_RETURN
+  | T_SWITCH
+  | T_THIS
+  | T_THROW
+  | T_TRY
+  | T_VAR
+  | T_WHILE
+  | T_WITH
+  | T_CONST
+  | T_LET
+  | T_NULL
+  | T_FALSE
+  | T_TRUE
+  | T_BREAK
+  | T_CASE
+  | T_CATCH
+  | T_CONTINUE
+  | T_DEFAULT
+  | T_DO
+  | T_FINALLY
+  | T_FOR
+  | T_CLASS
+  | T_EXTENDS
+  | T_STATIC
+  | T_ELSE
+  | T_NEW
+  | T_DELETE
+  | T_TYPEOF
+  | T_VOID
+  | T_ENUM
+  | T_EXPORT
+  | T_IMPORT
+  | T_SUPER
+  | T_IMPLEMENTS
+  | T_INTERFACE
+  | T_PACKAGE
+  | T_PRIVATE
+  | T_PROTECTED
+  | T_PUBLIC
+  | T_YIELD
+  | T_TYPE
+  | T_DEBUGGER
+  | T_DECLARE
+  | T_MODULE -> true
+  | _ -> false
