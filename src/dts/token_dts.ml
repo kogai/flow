@@ -8,7 +8,7 @@
  *
 *)
 
-module Ast = Dts_ast
+module Ast = Ast_dts
 
 type token =
   | T_NUMBER of number_type

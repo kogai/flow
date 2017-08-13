@@ -884,3 +884,38 @@ and Comment : sig
 end = Comment
 
 type program = Loc.t * Statement.t list * Comment.t list
+
+
+(*****************************************************************************)
+(* Entry points *)
+(*****************************************************************************)
+let parse_program fail filename_raw content =
+  let open Parser_env in
+  let filename = match filename_raw with
+    | Some f -> Some (Loc.LibFile f)
+    | None -> None
+  in
+
+  (* FIXME: Should consider that compilerOptions has lib and alwaysStrict *)
+  let parse_options = Some {
+      esproposal_class_instance_fields = true;
+      esproposal_class_static_fields = true;
+      esproposal_decorators = true;
+      esproposal_export_star_as = true;
+      types = true;
+      use_strict = true; 
+    } in
+  let env = init_env ~parse_options: parse_options filename content in
+  (* let comments = env.comments in *)
+
+  (* let ast = Parser_dts.program env in *)
+  (* if fail && !(env.errors) <> []
+     then raise (Error.Error (filter_duplicate_errors [] !(env.errors))); *)
+  ast, List.rev !(env.errors)
+
+
+let program ?(fail=true) content =
+  parse_program fail None content
+
+let program_file ?(fail=true) content filename =
+  parse_program fail (Some filename) content

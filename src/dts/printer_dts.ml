@@ -9,7 +9,7 @@
 *)
 
 open Format
-open Dts_ast
+open Ast_dts
 open Utils_js
 
 (* get_line_number returns a line number corresponding to a
