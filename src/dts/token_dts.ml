@@ -9,136 +9,15 @@
 *)
 
 module Ast = Ast_dts
+open Parser_dts
 
 type number_type =
   | OCTAL
   | NORMAL
 
-type token =
-  | T_NUMBER of number_type
-  | T_STRING of (Loc.t * string * string * bool) (* loc, value, raw, octal *)
-  | T_TEMPLATE_PART of Ast.Expression.TemplateLiteral.Element.t
-  | T_IDENTIFIER
-  | T_REGEXP of (Loc.t * string * string) (* /pattern/flags *)
-  (* Syntax *)
-  | T_LCURLY
-  | T_RCURLY
-  | T_LPAREN
-  | T_RPAREN
-  | T_LBRACKET
-  | T_RBRACKET
-  | T_SEMICOLON
-  | T_COMMA
-  | T_PERIOD
-  | T_ARROW
-  | T_ELLIPSIS
-  (* Keywords *)
-  | T_FUNCTION
-  | T_IF
-  | T_IN
-  | T_INSTANCEOF
-  | T_RETURN
-  | T_SWITCH
-  | T_THIS
-  | T_THROW
-  | T_TRY
-  | T_VAR
-  | T_WHILE
-  | T_WITH
-  | T_CONST
-  | T_LET
-  | T_NULL
-  | T_FALSE
-  | T_TRUE
-  | T_BREAK
-  | T_CASE
-  | T_CATCH
-  | T_CONTINUE
-  | T_DEFAULT
-  | T_DO
-  | T_FINALLY
-  | T_FOR
-  | T_CLASS
-  | T_EXTENDS
-  | T_STATIC
-  | T_ELSE
-  | T_NEW
-  | T_DELETE
-  | T_TYPEOF
-  | T_VOID
-  | T_ENUM
-  | T_EXPORT
-  | T_IMPORT
-  | T_SUPER
-  | T_IMPLEMENTS
-  | T_INTERFACE
-  | T_PACKAGE
-  | T_PRIVATE
-  | T_PROTECTED
-  | T_PUBLIC
-  | T_YIELD
-  | T_DEBUGGER
-  | T_DECLARE
-  | T_TYPE
-  | T_MODULE
-  (* Operators *)
-  | T_RSHIFT3_ASSIGN
-  | T_RSHIFT_ASSIGN
-  | T_LSHIFT_ASSIGN
-  | T_BIT_XOR_ASSIGN
-  | T_BIT_OR_ASSIGN
-  | T_BIT_AND_ASSIGN
-  | T_MOD_ASSIGN
-  | T_DIV_ASSIGN
-  | T_MULT_ASSIGN
-  | T_MINUS_ASSIGN
-  | T_PLUS_ASSIGN
-  | T_ASSIGN
-  | T_PLING
-  | T_COLON
-  | T_OR
-  | T_AND
-  | T_BIT_OR
-  | T_BIT_XOR
-  | T_BIT_AND
-  | T_EQUAL
-  | T_NOT_EQUAL
-  | T_STRICT_EQUAL
-  | T_STRICT_NOT_EQUAL
-  | T_LESS_THAN_EQUAL
-  | T_GREATER_THAN_EQUAL
-  | T_LESS_THAN
-  | T_GREATER_THAN
-  | T_LSHIFT
-  | T_RSHIFT
-  | T_RSHIFT3
-  | T_PLUS
-  | T_MINUS
-  | T_DIV
-  | T_MULT
-  | T_MOD
-  | T_NOT
-  | T_BIT_NOT
-  | T_INCR
-  | T_DECR
-  (* XHP Tokens *)
-  | T_XHP_OPEN_TAG
-  | T_XHP_CLOSE_TAG
-  | T_XHP_GT
-  | T_XHP_SLASH_GT
-  | T_XHP_ATTR
-  | T_XHP_TEXT
-  (* Extra tokens *)
-  | T_VIRTUAL_SEMICOLON
-  | T_ERROR
-  | T_EOF
-  (* JSX *)
-  | T_JSX_IDENTIFIER
-  | T_JSX_TEXT of (Loc.t * string * string) (* loc, value, raw *)
-
-and number_type =
-  | OCTAL
-  | NORMAL
+(* | T_STRING of (Loc.t * string * string * bool) ( loc, value, raw, octal *)
+(* | T_REGEXP of (Loc.t * string * string) /pattern/flags *)
+(* | T_JSX_TEXT of (Loc.t * string * string) loc, value, raw *)
 
 
 (*****************************************************************************)

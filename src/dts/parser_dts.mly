@@ -124,4 +124,5 @@
 %%
 
 program_impl:
-  | T_NULL { [] };
+  | T_NULL { [] }
+  | T_LCURLY { [] };

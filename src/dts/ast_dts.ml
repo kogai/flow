@@ -906,15 +906,13 @@ let parse_program fail filename_raw content =
       use_strict = true; 
     } in
   let env = init_env ~parse_options: parse_options filename content in
-  (* let comments = env.comments in *)
 
   (* let ast = Parser_dts.program env in *)
   (* if fail && !(env.errors) <> []
      then raise (Error.Error (filter_duplicate_errors [] !(env.errors))); *)
   ast, List.rev !(env.errors)
 
-
-let program ?(fail=true) content =
+let program_content ?(fail=true) content =
   parse_program fail None content
 
 let program_file ?(fail=true) content filename =
