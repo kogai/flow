@@ -204,6 +204,7 @@ clean-ocp: clean
 build-flow: _build/scripts/ppx_gen_flowlibs.native $(BUILT_OBJECT_FILES) $(COPIED_FLOWLIB)
 	ocamlbuild \
 		-use-ocamlfind -pkgs sedlex \
+		-use-menhir \
 		-no-links  $(INCLUDE_OPTS) $(LIB_OPTS) \
 		-lflags "$(LINKER_FLAGS)" \
 		$(RELEASE_TAGS) \
@@ -234,6 +235,7 @@ test-parser-ocp: $(OCP_BUILD_FILES) hack/utils/get_build_id.gen.c
 build-flow-debug: _build/scripts/ppx_gen_flowlibs.native $(BUILT_OBJECT_FILES) $(COPIED_FLOWLIB)
 	ocamlbuild \
 		-use-ocamlfind -pkgs sedlex \
+		-use-menhir \
 		-no-links $(INCLUDE_OPTS) $(LIB_OPTS) \
 		-lflags -custom -lflags "$(LINKER_FLAGS)" \
 		src/flow.d.byte
@@ -341,7 +343,7 @@ flow.odocl: $(shell find . -name "*.ml" -o -name "*.mli")
 	# For some reason these two AST files cause ocamldoc to get stuck
 	cat deps \
 		| grep -v "src/parser/ast.ml" \
-		| grep -v "src/dts/dts_ast.ml" \
+		| grep -v "src/dts/ast_dts.ml" \
 		| sed "s/\.ml$$//" > $@
 	rm -f deps last_deps temp_deps
 
