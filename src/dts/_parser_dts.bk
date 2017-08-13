@@ -10,7 +10,7 @@
 
 open Lexer_dts
 open Token_dts
-module Ast = Dts_ast
+module Ast = Ast_dts
 open Ast
 module Error = Parse_error
 module SSet = Set.Make(String)
@@ -110,19 +110,19 @@ let error_unexpected env =
       | T_NUMBER _, _ -> Error.UnexpectedNumber
       | T_STRING _, _ -> Error.UnexpectedString
       | T_IDENTIFIER, _ -> Error.UnexpectedIdentifier
-      | _, word when is_future_reserved word -> Error.UnexpectedReserved
-      | _, word when is_strict_reserved word -> Error.StrictReservedWord
+      | _, word when Token_dts.is_future_reserved word -> Error.UnexpectedReserved
+      | _, word when Token_dts.is_strict_reserved word -> Error.StrictReservedWord
       | _, value -> Error.UnexpectedToken value)
 
 (* Consume zero or more tokens *)
 module Eat : sig
-  val advance : env -> lex_result -> lex_result -> unit
-  val token : env -> unit
-  val vomit : env -> unit
-  val push_lex_mode : env -> lex_mode -> unit
-  val pop_lex_mode : env -> unit
-  val double_pop_lex_mode : env -> unit
-  val semicolon : env -> unit
+  val advance : Parser_env.env -> Lex_result.t -> Lex_result.t -> unit
+  val token : Parser_env.env -> unit
+  val vomit : Parser_env.env -> unit
+  val push_lex_mode : Parser_env.env -> lex_mode -> unit
+  val pop_lex_mode : Parser_env.env -> unit
+  val double_pop_lex_mode : Parser_env.env -> unit
+  val semicolon : Parser_env.env -> unit
 end = struct
   let advance env lex_result next_lex_result =
     error_list env lex_result.lex_errors;
