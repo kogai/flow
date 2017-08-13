@@ -10,6 +10,10 @@
 
 module Ast = Ast_dts
 
+type number_type =
+  | OCTAL
+  | NORMAL
+
 type token =
   | T_NUMBER of number_type
   | T_STRING of (Loc.t * string * string * bool) (* loc, value, raw, octal *)
